@@ -37,7 +37,7 @@ jobs:
               -k"shubhamtatvamasi@gmail.com" \
               -p"gpg --batch --passphrase "${{ secrets.GPG_PASSPHRASE }}" --pinentry-mode loopback"
             # Upload packages
-            dput --unchecked ppa:shubhamtatvamasi/helloworld ../*.changes
+            dput --unchecked ppa:shubhamtatvamasi/shubhctl ../*.changes
             # Cleanup
             rm -rf ../*.{dsc,tar.gz,build,buildinfo,changes,upload}
             # Revert distro
