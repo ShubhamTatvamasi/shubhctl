@@ -30,24 +30,32 @@ jobs:
           sed "s/sed-date/$(date -u "+%a, %d %b %Y %T")/" -i debian/changelog
  
           for distro in $(distro-info --supported); do
+
             # Skip if distro is bionic
             if [[ "${distro}" == "bionic" ]]; then
               continue
             fi
+
             # Set distro
             sed "s/sed-distro/${distro}/g" -i debian/changelog
+
             # Build debian packages
-            echo "y" | sudo debuild -uc -us -S -sa \
+            echo "y" | debuild -uc -us -S -sa \
               -k"shubhamtatvamasi@gmail.com" \
               -p"gpg --batch --passphrase "${{ secrets.GPG_PASSPHRASE }}" --pinentry-mode loopback"
+
             # Sign Changes
             debsign ../*.changes \
               -k"shubhamtatvamasi@gmail.com" \
               -p"gpg --batch --passphrase "${{ secrets.GPG_PASSPHRASE }}" --pinentry-mode loopback"
+
             # Upload packages
             dput --unchecked ppa:shubhamtatvamasi/shubhctl ../*.changes
+
             # Cleanup
             rm -rf ../*.{dsc,tar.gz,build,buildinfo,changes,upload}
+
             # Revert distro
             sed "s/${distro}/sed-distro/g" -i debian/changelog
+
           done
