@@ -23,7 +23,7 @@ jobs:
       - name: Release
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
-      - run: |
+        run: |
           echo ${RELEASE_VERSION}
           yq e '.Standards-Version = env(RELEASE_VERSION)' -i debian/control
           cat debian/control
