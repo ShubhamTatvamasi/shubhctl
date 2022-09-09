@@ -37,7 +37,7 @@ jobs:
             fi
 
             # Set distro
-            sed "s/DISTRO/${distro}/" -i debian/changelog
+            sed "s/DISTRO/${distro}/g" -i debian/changelog
 
             # Build debian packages
             echo "y" | debuild -uc -us -S -sa \
@@ -56,6 +56,6 @@ jobs:
             rm -rf ../*.{dsc,tar.gz,build,buildinfo,changes,upload}
 
             # Revert distro
-            sed "s/${distro}/DISTRO/" -i debian/changelog
+            sed "s/${distro}/DISTRO/g" -i debian/changelog
 
           done
