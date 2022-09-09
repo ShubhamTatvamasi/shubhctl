@@ -1,0 +1,14 @@
+Source: shubhctl
+Standards-Version:
+Maintainer: Shubham Tatvamasi <shubhamtatvamasi@gmail.com>
+Section: utils
+Priority: optional
+Homepage: https://github.com/ShubhamTatvamasi/hello-ppa
+XS-Go-Import-Path: github.com/ShubhamTatvamasi/hello-ppa
+Build-Depends: debhelper-compat (= 12),
+  golang-any,
+  dh-golang,
+
+Package: shubhctl
+Architecture: any
+Description: a simple cli tool
