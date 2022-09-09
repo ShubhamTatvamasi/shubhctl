@@ -23,11 +23,13 @@ jobs:
       - name: Build and Upload packages
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
+          RELEASE_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
 
           sed "s/0.0.0/${RELEASE_VERSION}/" -i debian/control
           sed "s/0.0.0/${RELEASE_VERSION}/" -i debian/changelog
           sed "s/00:00:00/$(date -u "+%a, %d %b %Y %T")/" -i debian/changelog
+          sed "s/RELEASE_MESSAGE/${RELEASE_MESSAGE}/" -i debian/changelog
  
           for distro in $(distro-info --supported); do
 
