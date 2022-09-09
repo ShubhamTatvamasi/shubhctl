@@ -25,9 +25,9 @@ jobs:
           RELEASE_VERSION: ${{ github.ref_name }}
         run: |
 
-          yq e '.Standards-Version = env(RELEASE_VERSION)' -i debian/control
-          sed "s/sed-version/${RELEASE_VERSION}/" -i debian/changelog
-          sed "s/sed-date/$(date -u "+%a, %d %b %Y %T")/" -i debian/changelog
+          sed "s/0.0.0/${RELEASE_VERSION}/" -i debian/control
+          sed "s/0.0.0/${RELEASE_VERSION}/" -i debian/changelog
+          sed "s/00:00:00/$(date -u "+%a, %d %b %Y %T")/" -i debian/changelog
  
           for distro in $(distro-info --supported); do
 
@@ -37,7 +37,7 @@ jobs:
             fi
 
             # Set distro
-            sed "s/sed-distro/${distro}/g" -i debian/changelog
+            sed "s/DISTRO/${distro}/g" -i debian/changelog
 
             # Build debian packages
             echo "y" | debuild -uc -us -S -sa \
@@ -56,6 +56,6 @@ jobs:
             rm -rf ../*.{dsc,tar.gz,build,buildinfo,changes,upload}
 
             # Revert distro
-            sed "s/${distro}/sed-distro/g" -i debian/changelog
+            sed "s/${distro}/DISTRO/g" -i debian/changelog
 
           done
