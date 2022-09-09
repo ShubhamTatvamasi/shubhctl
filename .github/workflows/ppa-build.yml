@@ -1,10 +1,11 @@
 ---
 name: Build and upload package to PPA
 
-on: 
+on:
   workflow_dispatch:
-  tags:
-    - '*'
+  push:
+    tags:
+      - '*'
 
 jobs:
   ppa-build:
