@@ -45,7 +45,7 @@ jobs:
               -p"gpg --batch --passphrase "${{ secrets.GPG_PASSPHRASE }}" --pinentry-mode loopback"
 
             # Sign Changes
-            echo "y" | debsign ../*.changes \
+            debsign ../*.changes \
               -k"shubhamtatvamasi@gmail.com" \
               -p"gpg --batch --passphrase "${{ secrets.GPG_PASSPHRASE }}" --pinentry-mode loopback"
 
